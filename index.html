@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wawan Dental Studio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap"rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        /* DEFAULT = LIGHT MODE */
+        :root {
+            --bg: #f4f6fb;
+            --text: #111111;
+            --card: #ffffff;
+            --card2: #f1f3f9;
+            --accent: #c9a227;
+            --muted: #555555;
+        }
+
+        body.dark {
+            --bg: #070b16;
+            --text: #ffffff;
+            --card: #12182b;
+            --card2: #0c1120;
+            --accent: #f5d76e;
+            --muted: #cccccc;
+        }
+
+        body.dark .form-control {
+            background: var(--card);
+            color: #fff;
+        }
+
+        body.dark .form-control::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: .4s ease;
+        }
+
+        h1,
+        h2,
+        h3,
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, .7);
+        }
+
+        body.dark .navbar {
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .navbar-brand {
+            color: var(--text) !important;
+        }
+
+        .nav-link {
+            color: var(--muted) !important
+        }
+
+        .nav-link:hover {
+            color: var(--text) !important
+        }
+
+        .btn-accent {
+            background: linear-gradient(45deg, var(--accent), #fff0b3);
+            border: none;
+            color: #000;
+            font-weight: 600;
+            border-radius: 30px;
+            padding: 10px 24px;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 15px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .15);
+        }
+
+        .section {
+            padding: 100px 0
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 32px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, var(--card), var(--card2));
+            border-radius: 20px;
+            padding: 30px;
+            transition: .4s;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial {
+            background: linear-gradient(145deg, var(--card), var(--card2));
+            padding: 40px;
+            border-radius: 20px;
+        }
+
+        /* Fix arrow visibility */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            filter: invert(1);
+        }
+
+        body.dark .carousel-control-prev-icon,
+        body.dark .carousel-control-next-icon {
+            filter: invert(0);
+        }
+
+        .form-control {
+            background: var(--card);
+            border: 1px solid #ddd;
+            color: var(--text);
+        }
+
+        body.dark .form-control {
+            border: 1px solid #222;
+        }
+
+        .form-control:focus {
+            background: var(--card);
+            color: var(--text);
+            border-color: var(--accent);
+            box-shadow: none;
+        }
+
+        footer {
+            padding: 60px 0 30px;
+            text-align: center;
+            opacity: .7;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(201,162,39,0.3);
+        }
+
+        .promo-section {
+            position: relative;
+            width: 100%;
+            padding: 140px 0;
+            overflow: hidden;
+
+            /* PARALLAX */
+            background: url('https://vivekseo250562513.wordpress.com/wp-content/uploads/2023/04/dental-clinics-in-dubai.jpg') center center / cover no-repeat;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        /* Overlay */
+        .promo-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.75), rgba(0,0,0,0.3));
+        }
+
+        /* Content wrapper supaya text tetap rapi */
+        .promo-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 40px;
+        }
+
+        .btn-promo {
+            background: #ff4d4d;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-promo:hover {
+            background: #e63939;
+        }
+
+        /* Fix mobile parallax */
+        @media (max-width: 768px) {
+            .promo-section {
+                background-attachment: scroll;
+            }
+        }
+
+        .footer-section {
+            background: rgba(255, 255, 255, .7);
+            backdrop-filter: blur(12px);
+            color: var(--text);
+            padding: 70px 0 30px;
+            text-align: left;
+        }
+
+        body.dark .footer-section {
+            background: rgba(0, 0, 0, .6);
+        }
+
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 18px;
+            color: var(--text);
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 40px;
+            padding-top: 20px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        body.dark .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Wawan Dental Care</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="btn btn-accent ms-3" href="#contact">Book Now</a></li>
+                    <li class="nav-item">
+                        <span class="theme-toggle" onclick="toggleTheme()">🌙</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1>Elegant Smile. Modern Care.</h1>
+                    <p class="mt-3">Premium dental experience with advanced technology and personalized comfort.</p>
+                    <a href="#services" class="btn btn-accent mt-4">Explore Services</a>
+                </div>
+
+                <div class="col-lg-6 mt-5 mt-lg-0 text-center">
+                    <img src="https://selindentalclinic.com/images/slaytlar/167420db9b76c9_400.webp"
+                        alt="Dental Clinic">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <h4>Cosmetic Dentistry</h4>
+                        <p>Whitening, veneers, and aesthetic treatments for a confident smile.</p>
+                        <button class="btn btn-sm btn-accent mt-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#serviceModal"
+                            data-title="Cosmetic Dentistry"
+                            data-description="Enhance your smile with our advanced cosmetic treatments designed for natural and lasting results.
+
+                                • Professional Teeth Whitening  
+                                • Porcelain Veneers  
+                                • Smile Makeover  
+                                • Digital Smile Design  
+
+                                Duration: 60–120 minutes  
+                                Technology: Digital Imaging & Precision Tools  
+                                Recovery Time: Minimal
+                            ">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <h4>Dental Implants</h4>
+                        <p>Permanent and natural-looking tooth replacement solutions.</p>
+                        <button class="btn btn-sm btn-accent mt-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#serviceModal"
+                            data-title="Dental Implants"
+                            data-description="Restore missing teeth with durable and natural-looking implant solutions.
+
+                                • Single Tooth Implants  
+                                • Full Arch Restoration  
+                                • 3D Digital Implant Planning  
+                                • Bone Grafting (if needed)  
+
+                                Procedure Time: 1–2 hours  
+                                Material: Titanium Implant System  
+                                Result: Permanent & Natural Appearance
+                            ">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <h4>General Care</h4>
+                        <p>Comprehensive exams, cleaning, and preventive treatments.</p>
+                        <button class="btn btn-sm btn-accent mt-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#serviceModal"
+                            data-title="General Dental Care"
+                            data-description="Maintain optimal oral health with comprehensive preventive treatments.
+
+                                • Comprehensive Oral Examination  
+                                • Professional Cleaning & Scaling  
+                                • Cavity Filling  
+                                • Gum Health Evaluation  
+
+                                Recommended Visit: Every 6 Months  
+                                Focus: Prevention & Early Detection  
+                                Comfort Level: Gentle & Patient-Centered
+                            ">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <div class="row align-items-center">
+    
+                <div class="col-lg-6 mt-5 mt-lg-0 text-center">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200"
+                         class="img-fluid"
+                         style="border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,.15);"
+                         alt="Dental Team">
+                </div>
+    
+                <div class="col-lg-6">
+                    <h2 class="mb-4 mt-3">About Wawan Dental Studio</h2>
+                    <p style="color:var(--muted);">
+                        Wawan Dental Studio is a modern dental clinic dedicated to providing
+                        exceptional oral care with a luxurious and comfortable experience.
+                        Our team combines advanced technology with personalized treatment
+                        to ensure every patient feels confident and cared for.
+                    </p>
+    
+                    <p style="color:var(--muted);">
+                        From preventive care to advanced cosmetic dentistry, we focus on
+                        precision, aesthetics, and long-term dental health.
+                    </p>
+    
+                    <a href="#contact" class="btn btn-accent mt-3">
+                        Schedule Consultation
+                    </a>
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section">
+        <div class="container text-center">
+            <h2 class="section-title">What Patients Say</h2>
+
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                        <div class="testimonial">
+                            <p class="lead">"The most luxurious and comfortable dental clinic I've ever visited."</p>
+                            <h6 class="mt-3">— Sarah Johnson</h6>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="testimonial">
+                            <p class="lead">"Professional service with truly modern technology."</p>
+                            <h6 class="mt-3">— Michael Brown</h6>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="promo-section mt-5 mb-5">
+        <div class="promo-content">
+            <div class="col-lg-6">
+                <h5 class="mb-3">Hurry Up!</h5>
+                <h2 class="mb-3" style="font-family:'Playfair Display', serif; font-size:48px;">
+                    Smile Transform Starts Today
+                </h2>
+                <p class="mb-4">
+                    Book your consultation and experience world-class dental care.
+                </p>
+                <a href="#contact" class="btn btn-sm btn-accent">
+                    Book Appointment
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container text-center">
+            <h2 class="section-title">Book Appointment</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form>
+                        <input type="text" class="form-control mb-3" placeholder="Full Name">
+                        <input type="email" class="form-control mb-3" placeholder="Email Address">
+                        <textarea class="form-control mb-3" rows="4" placeholder="Message"></textarea>
+                        <button class="btn btn-accent w-100">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row gy-5">
+    
+                <!-- LEFT SIDE -->
+                <div class="col-lg-4">
+                    <h5 class="footer-title">Wawan Dental Studio</h5>
+    
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                    </div>
+                </div>
+    
+                <!-- CENTER -->
+                <div class="col-lg-4">
+                    <h5 class="footer-title">Get in Touch With Us</h5>
+                    <p class="mt-3 footer-text">
+                        Your trusted partner for premium dental care and modern smile solutions.
+                        We provide high-quality treatments with advanced technology and
+                        personalized comfort.
+                    </p>
+    
+                    <p class="footer-text">
+                        📍 Jakarta, Indonesia <br>
+                        📞 +62 812 3456 7890 <br>
+                        ✉ info@wawandental.com
+                    </p>
+                </div>
+    
+                <!-- RIGHT SIDE (MAP) -->
+                <div class="col-lg-4">
+                    <iframe 
+                        src="https://www.google.com/maps?q=Jakarta&output=embed"
+                        width="100%" 
+                        height="220" 
+                        style="border:0; border-radius:15px;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+    
+            </div>
+    
+            <!-- BOTTOM -->
+            <div class="footer-bottom mt-5 pt-4">
+                <div class="row">
+                    <div class="col-md-6 text-md-start text-center">
+                        © 2026 Wawan Dental Studio. All Rights Reserved.
+                    </div>
+                    <div class="col-md-6 text-md-end text-center">
+                        Powered by Wawan Digital Agency
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Service Modal -->
+    <div class="modal fade" id="serviceModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background:var(--card); color:var(--text); border-radius:20px;">
+
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold" id="modalTitle" style="font-family:'Playfair Display', serif;"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body" id="modalDescription">
+                </div>
+
+                <div class="modal-footer border-0">
+                    <a href="#contact" class="btn btn-accent" onclick="goToContact()">
+                        Book Appointment
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+            const icon = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark')) {
+                icon.textContent = "☀️";
+            } else {
+                icon.textContent = "🌙";
+            }
+        }
+
+        function goToContact() {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('serviceModal'));
+            modal.hide();
+
+            setTimeout(() => {
+                document.querySelector('#contact').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }
+
+        const serviceModal = document.getElementById('serviceModal');
+
+        serviceModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+
+            const title = button.getAttribute('data-title');
+            const description = button.getAttribute('data-description');
+
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').innerHTML =
+                description.replace(/\n/g, "<br>");
+        });
+    </script>
+
+</body>
+
+</html>
